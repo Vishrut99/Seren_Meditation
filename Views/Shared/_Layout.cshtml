@@ -1,0 +1,500 @@
+﻿@using MeditationPlatform.Common
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        Serene Meditation
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="/css/site.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: rgba(245,187,236,1);
+            --secondary-color: #799F0C;
+            --accent-color: #81c784;
+            --light-color: #f5f5f5;
+            --dark-color: #455a64;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edfb 100%);
+            color: var(--dark-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather', serif;
+        }
+
+        .navbar {
+            background: linear-gradient(to right, #9575cd, #7986cb);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+
+            .navbar-brand img {
+                max-height: 40px;
+                margin-right: 10px;
+            }
+
+            .nav-link:hover {
+                color: #e0f7fa !important;
+            }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary-color), #9575cd);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background: linear-gradient(to right, #9575cd, var(--primary-color));
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+            }
+
+        .card-header {
+            background: linear-gradient(to right, #81c784, #66bb6a);
+            color: white;
+            border: none;
+        }
+
+        footer {
+            padding-top: 100px;
+            padding-bottom: 0px;
+            background: linear-gradient(135deg,#3CA55C 8%, #c5cae9 100%) !important;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+            footer .text-primary {
+                color: var(--primary-color);
+            }
+
+            footer .btn-primary {
+                background: linear-gradient(to right, var(--primary-color), #7e57c2);
+            }
+
+            footer .social-icon {
+                transition: all 0.3s ease;
+                font-size: 1.2rem;
+            }
+
+                footer .social-icon:hover {
+                    transform: translateY(-3px);
+                }
+
+            footer .bi-facebook:hover {
+                color: #4267B2 !important;
+            }
+
+            footer .bi-instagram:hover {
+                color: #E1306C !important;
+            }
+
+            footer .bi-twitter:hover {
+                color: #1DA1F2 !important;
+            }
+
+            footer .bi-youtube:hover {
+                color: #FF0000 !important;
+            }
+
+        .banner-section {
+            background: linear-gradient(135deg, #bbdefb 0%, #90caf9 100%);
+            padding: 60px 0;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 30px;
+        }
+
+        .features-section {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            padding: 60px 0;
+            border-radius: 30px;
+            margin: 30px 0;
+        }
+
+        .testimonials-section {
+            background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%);
+            padding: 60px 0;
+            border-radius: 30px;
+            margin: 30px 0;
+        }
+
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .modal-header {
+            background: linear-gradient(to right, #9575cd, #7986cb);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            border-bottom: none;
+        }
+
+        .modal-title {
+            color: white;
+        }
+
+        .btn-close {
+            color: white;
+            filter: brightness(0) invert(1);
+        }
+
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #9575cd, #7986cb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1050;
+        }
+
+            .chat-button:hover {
+                background: linear-gradient(135deg, #7986cb, #9575cd);
+                transform: translateY(-3px);
+            }
+
+            .chat-button::after {
+                content: "AI Chat";
+                position: absolute;
+                right: 70px;
+                background: #7986cb;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+                white-space: nowrap;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+                font-size: 14px;
+            }
+
+            .chat-button:hover::after {
+                opacity: 1;
+            }
+
+        .chat-popup {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 320px;
+            height: 420px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 1040;
+            overflow: hidden;
+        }
+
+        .chat-popup-header {
+            background: linear-gradient(to right, #9575cd, #7986cb);
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .chat-popup-header h5 {
+                margin: 0;
+                font-size: 16px;
+            }
+
+        .chat-popup-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background: #f9f9f9;
+        }
+
+        .chat-input-container {
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background: white;
+        }
+
+        .chat-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .chat-send-button {
+            width: 100%;
+            padding: 8px;
+            background: linear-gradient(to right, #9575cd, #7986cb);
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .chat-send-button:hover {
+                background: linear-gradient(to right, #7986cb, #9575cd);
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    <img src="/images/logo.jpg" alt="Serene Meditation Logo">
+                    Serene Meditation
+    </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="/Home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Subscription">Subscription</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#feedbackModal">Feedback</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@(GlobalUserStore.IsUserLoggedIn ? "/ProgressTracking" : "/Account/Register")">Progress Tracking</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/MeditationTracks">Meditation Tracks</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="feedbackModalLabel">Submit Your Feedback</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="feedbackForm">
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rating (1-5)</label>
+                            <input type="number" id="rating" name="rating" class="form-control" min="1" max="5" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="comments" class="form-label">Comments</label>
+                            <textarea id="comments" name="comments" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Submit Feedback</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        @RenderBody()
+    </main>
+    <footer class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="text-primary mb-3">Serene Meditation</h5>
+                    <p class="text-muted">Guiding you toward inner peace and mindfulness through meditation practices for body, mind, and spirit.</p>
+                    <p class="text-muted small mt-3">
+                        <i class="bi bi-telephone-fill me-2"></i>+91 9876543210<br>
+                        <i class="bi bi-envelope-fill me-2"></i>info@serenemeditation.com<br>
+                        <i class="bi bi-geo-alt-fill me-2"></i>28 Peaceful Lane, Mindful Gardens, Gujarat, India
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-primary mb-3">Explore</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Meditation Classes</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Resources</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-primary mb-3">Our Classes</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Beginner Meditation</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Mindfulness Practice</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Chakra Balancing</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Guided Visualization</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Sound Healing</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="text-primary mb-3">Stay Connected</h5>
+                    <p class="text-muted small">Subscribe to our newsletter for meditation tips and updates</p>
+                    <form>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Your email" aria-label="Email" required>
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                    <div class="mt-4">
+                        <a href="#" class="text-primary me-3"><i class="bi bi-facebook fs-5"></i></a>
+                        <a href="#" class="text-primary me-3"><i class="bi bi-instagram fs-5"></i></a>
+                        <a href="#" class="text-primary me-3"><i class="bi bi-twitter fs-5"></i></a>
+                        <a href="#" class="text-primary"><i class="bi bi-youtube fs-5"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top mt-4 pt-3">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p class="text-muted small mb-0">© 2025 Serene Meditation. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <a href="#" class="text-muted small me-3 text-decoration-none">Privacy Policy</a>
+                        <a href="#" class="text-muted small me-3 text-decoration-none">Terms of Service</a>
+                        <a href="#" class="text-muted small text-decoration-none">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="chat-button" title="AI Chat">
+        <i class="bi bi-chat-dots-fill"></i>
+    </div>
+    <div id="chatPopup" class="chat-popup">
+        <div class="chat-popup-header">
+            <h5>AI Assistant</h5>
+            <button class="chat-popup-close">×</button>
+        </div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <div class="chat-input-container">
+            <input id="userInput" type="text" class="chat-input" placeholder="Type your message...">
+            <button id="sendButton" class="chat-send-button">Send</button>
+        </div>
+    </div>
+    <script>
+        const chatButton = document.querySelector('.chat-button');
+        const chatPopup = document.getElementById('chatPopup');
+        const closeButton = document.querySelector('.chat-popup-close');
+        const sendButton = document.getElementById('sendButton');
+        const userInput = document.getElementById('userInput');
+        const chatMessages = document.getElementById('chatMessages');
+
+        // Replace with your actual API key
+        const GEMINI_API_KEY = "AIzaSyDd3itKHOYuHRRC1G1nl9qpJAgwB427gcs";
+        // Use the correct endpoint with a valid model
+        const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+        function toggleChatPopup() {
+            chatPopup.style.display = chatPopup.style.display === 'none' || chatPopup.style.display === '' ? 'flex' : 'none';
+        }
+
+        chatButton.addEventListener('click', toggleChatPopup);
+        closeButton.addEventListener('click', toggleChatPopup);
+
+        sendButton.addEventListener('click', async () => {
+            console.log("Send button clicked!"); // Debug log to confirm click
+
+            const userMessage = userInput.value.trim();
+            if (!userMessage) return;
+
+            // Display user message
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.innerHTML = `<div style="margin-bottom:5px;"><strong>You:</strong> ${userMessage}</div>`;
+            chatMessages.appendChild(userMessageDiv);
+
+            userInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const response = await fetch(GEMINI_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: userMessage }]
+                        }]
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error: ${response.status} ${response.statusText} - ${errorText}`);
+                }
+
+                const data = await response.json();
+                let botReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't understand.";
+                botReply = botReply.replace(/\*\*/g, '').replace(/\*/g, '');
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.innerHTML = `<div style="margin-bottom:5px;"><strong>AI:</strong> ${botReply}</div>`;
+                chatMessages.appendChild(botMessageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            } catch (error) {
+                console.error('API Error:', error);
+                const errorDiv = document.createElement('div');
+                errorDiv.innerHTML = `<div style="color:red; margin-bottom:5px;"><strong>Error:</strong> Failed to get a response: ${error.message}. Please try again later.</div>`;
+                chatMessages.appendChild(errorDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                console.log("Enter key pressed, triggering send button!"); // Debug log
+                sendButton.click();
+            }
+        });
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Stop actual form submit
+
+            // Close the modal
+            var feedbackModal = bootstrap.Modal.getInstance(document.getElementById('feedbackModal'));
+            feedbackModal.hide();
+
+            // Redirect to Home/Index
+            window.location.href = '/Home/Index';
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

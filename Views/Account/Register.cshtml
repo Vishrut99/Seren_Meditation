@@ -1,0 +1,59 @@
+﻿@model MEDIT.Models.User
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container my-5" style="background: linear-gradient(135deg, #E6F4F1 0%, #D2E9E6 25%, #B8D8D8 50%, #A2C7C7 75%, #8EB8B8 100%); min-height: 100vh; font-family: 'Lato', sans-serif;">
+    <h2 class="text-center mb-5 fw-bold" style="color: #2F4F4F; animation: fadeIn 1.5s ease-in-out;">Register</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm" style="background: rgba(255, 255, 255, 0.8); transition: transform 0.3s ease;">
+                <div class="card-body">
+                    <form asp-action="Register" method="post" style="animation: fadeIn 1.5s ease-in-out;">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control" placeholder="Enter your name" required>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" placeholder="Enter your email" required>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Password" class="form-label"></label>
+                            <input asp-for="Password" class="form-control" placeholder="Create a password" required>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                            @if (ViewData.ModelState.ContainsKey("confirmPassword"))
+                            {
+                                <span class="text-danger">@ViewData.ModelState["confirmPassword"].Errors.FirstOrDefault()?.ErrorMessage</span>
+                            }
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>Already have an account? <a href="/Account/Login" class="text-primary">Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

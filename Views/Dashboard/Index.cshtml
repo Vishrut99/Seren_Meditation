@@ -1,0 +1,61 @@
+﻿<div class="container my-5">
+    <h2 class="text-center mb-5 fw-bold animate__animated animate__fadeInDown" style="color: #FF6F91; font-size: 3rem;">Your Sacred Space</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg border-0 animate__animated animate__fadeInLeft" style="background: rgba(107,72,255,0.2); backdrop-filter: blur(5px);">
+                <div class="card-header text-center" style="background: linear-gradient(45deg, #6B48FF, #FF6F91); color: #F9E4E6;">Meditation History</div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush" style="background: transparent; color: #F9E4E6;">
+                        <li class="list-group-item">Morning Calm - 03/15/2025</li>
+                        <li class="list-group-item">Deep Focus - 03/16/2025</li>
+                        <li class="list-group-item">Sleep Aid - 03/17/2025</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg border-0 animate__animated animate__fadeInUp" style="background: rgba(107,72,255,0.2); backdrop-filter: blur(5px);">
+                <div class="card-header text-center" style="background: linear-gradient(45deg, #6B48FF, #FF6F91); color: #F9E4E6;">Progress Tracker</div>
+                <div class="card-body">
+                    <canvas id="progressChart"></canvas>
+                    <p class="text-center mt-3" style="color: #00FFD1;">Total Sessions: 15</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg border-0 animate__animated animate__fadeInRight" style="background: rgba(107,72,255,0.2); backdrop-filter: blur(5px);">
+                <div class="card-header text-center" style="background: linear-gradient(45deg, #6B48FF, #FF6F91); color: #F9E4E6;">Selected Course</div>
+                <div class="card-body text-center">
+                    <h5 class="fw-bold" style="color: #FF6F91;">Mindful Living</h5>
+                    <p>A 30-day sensual journey.</p>
+                    <a href="#" class="btn btn-primary mt-3">Continue</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        const progressChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                datasets: [{
+                    label: 'Sessions Completed',
+                    data: [5, 10, 15, 20, 25],
+                    borderColor: '#FF6F91',
+                    backgroundColor: 'rgba(255,111,145,0.2)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                scales: { y: { beginAtZero: true } },
+                plugins: { legend: { labels: { color: '#F9E4E6' } } }
+            }
+        });
+    </script>
+}

@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Models",
+    "\\Views",
+    "\\Views\\Home",
+    "\\Views\\MeditationTracks",
+    "\\Views\\ProgressTracking",
+    "\\Views\\Shared",
+    "\\Views\\Subscription",
+    "\\wwwroot",
+    "\\wwwroot\\images"
+  ],
+  "SelectedNode": "\\Views\\Subscription\\Basic.cshtml",
+  "PreviewInSolutionExplorer": false
+}

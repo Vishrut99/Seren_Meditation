@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Vishrut\\source\\repos\\MEDIT\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9ED4AD26-B03E-4A67-A1DB-8C4B36BF0B31}|MEDIT.csproj|c:\\users\\vishrut\\source\\repos\\medit\\views\\subscription\\payment.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9ED4AD26-B03E-4A67-A1DB-8C4B36BF0B31}|MEDIT.csproj|solutionrelative:views\\subscription\\payment.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9ED4AD26-B03E-4A67-A1DB-8C4B36BF0B31}|MEDIT.csproj|c:\\users\\vishrut\\source\\repos\\medit\\views\\subscription\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9ED4AD26-B03E-4A67-A1DB-8C4B36BF0B31}|MEDIT.csproj|solutionrelative:views\\subscription\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9ED4AD26-B03E-4A67-A1DB-8C4B36BF0B31}|MEDIT.csproj|c:\\users\\vishrut\\source\\repos\\medit\\controllers\\subscriptioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9ED4AD26-B03E-4A67-A1DB-8C4B36BF0B31}|MEDIT.csproj|solutionrelative:controllers\\subscriptioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Payment.cshtml",
+              "DocumentMoniker": "C:\\Users\\Vishrut\\source\\repos\\MEDIT\\Views\\Subscription\\Payment.cshtml",
+              "RelativeDocumentMoniker": "Views\\Subscription\\Payment.cshtml",
+              "ToolTip": "C:\\Users\\Vishrut\\source\\repos\\MEDIT\\Views\\Subscription\\Payment.cshtml*",
+              "RelativeToolTip": "Views\\Subscription\\Payment.cshtml*",
+              "ViewState": "AgIAAKwAAAAAAAAAAAAqwLUAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-28T19:48:08.506Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SubscriptionController.cs",
+              "DocumentMoniker": "C:\\Users\\Vishrut\\source\\repos\\MEDIT\\Controllers\\SubscriptionController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SubscriptionController.cs",
+              "ToolTip": "C:\\Users\\Vishrut\\source\\repos\\MEDIT\\Controllers\\SubscriptionController.cs",
+              "RelativeToolTip": "Controllers\\SubscriptionController.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAswJoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-28T19:43:54.465Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Vishrut\\source\\repos\\MEDIT\\Views\\Subscription\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Subscription\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Vishrut\\source\\repos\\MEDIT\\Views\\Subscription\\Index.cshtml",
+              "RelativeToolTip": "Views\\Subscription\\Index.cshtml",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAAAEAAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-28T19:41:05.109Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,805 @@
+﻿@{
+    ViewData["Title"] = "Nature's Wisdom";
+}
+
+<style>
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+
+    @@keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+    }
+
+    .custom-container {
+        background: linear-gradient(135deg, #E6F4F1 0%, #D2E9E6 25%, #B8D8D8 50%, #A2C7C7 75%, #8EB8B8 100%);
+        min-height: 100vh;
+        font-family: 'Lato', sans-serif;
+    }
+
+    .custom-header {
+        color: #2F4F4F;
+    }
+
+    .intro-section {
+        background: rgba(245, 245, 220, 0.9);
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .card {
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        border: none;
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+    .card-img {
+        height: 200px;
+        object-fit: cover;
+        width: 100%;
+        aspect-ratio: 4/3; /* Ensure consistent image aspect ratio */
+    }
+
+    .card-body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    /* Updated Read More button style */
+    .read-more-btn {
+        background-color: transparent;
+        color: #2f4f4f;
+        border: none;
+        padding: 0;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.2s;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .read-more-btn:hover {
+            color: #1e3333;
+            text-decoration: underline;
+        }
+
+    .article-details {
+        display: none;
+        margin-top: 10px;
+        padding: 8px;
+        background: #f8f9fa;
+        border-radius: 5px;
+    }
+
+        .article-details.show {
+            display: block;
+        }
+
+    .expanded-content {
+        display: none;
+    }
+
+    /* Modal styles for expanded card */
+    .modal-card {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+        .modal-card .card-img {
+            height: 250px;
+            object-fit: cover;
+        }
+
+    .modal-content {
+        border-radius: 12px;
+        border: none;
+    }
+
+    .modal-body {
+        padding: 0;
+    }
+
+    .expanded-article-content {
+        padding: 20px;
+    }
+
+        .expanded-article-content h5 {
+            color: #2F4F4F;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .expanded-article-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+    .article-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 20px 0;
+    }
+
+    .article-tag {
+        background-color: #e6f4f1;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        color: #2F4F4F;
+    }
+
+    .article-quote {
+        border-left: 4px solid #8EB8B8;
+        padding-left: 15px;
+        margin: 20px 0;
+        font-style: italic;
+        color: #555;
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 576px) {
+        .custom-header
+
+    {
+        font-size: 1.5rem;
+    }
+
+    .intro-section p {
+        font-size: 0.9rem;
+    }
+
+    .card-img {
+        height: 150px;
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    .card-text {
+        font-size: 0.85rem;
+    }
+
+    .read-more-btn {
+        font-size: 0.8rem;
+    }
+
+    .article-details, .expanded-content {
+        font-size: 0.8rem;
+    }
+
+    .modal-card .card-img {
+        height: 180px;
+    }
+
+    }
+
+    @@media (min-width: 576px) and (max-width: 768px) {
+        .custom-header
+
+    {
+        font-size: 1.75rem;
+    }
+
+    .intro-section p {
+        font-size: 1rem;
+    }
+
+    .card-img {
+        height: 180px;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+
+    .read-more-btn {
+        font-size: 0.85rem;
+    }
+
+    .modal-card .card-img {
+        height: 200px;
+    }
+
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+
+<div class="container my-4 custom-container">
+    <h2 class="text-center pt-4 mb-4 fw-bold custom-header">
+        Nature's Wisdom
+    </h2>
+
+    <!-- Intro Section -->
+    <div class="row mb-4">
+        <div class="col-12 text-center intro-section">
+            <p class="lead" style="color: #2F4F4F;">
+                A collection of timeless articles to guide you on your journey to peace and mindfulness.
+            </p>
+        </div>
+    </div>
+
+    <!-- Blog Articles -->
+    <div class="row">
+        <!-- Article 1 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card shadow-sm">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                     class="card-img-top img-fluid card-img"
+                     alt="Mountain landscape with fog">
+                <div class="card-body d-flex flex-column">
+                    <h4 class="card-title fw-bold">The Healing Power of Forests</h4>
+                    <p class="card-text text-muted">March 15, 2025 | By Emma Rivers</p>
+                    <p class="card-text">
+                        Discover the ancient Japanese practice of forest bathing and how spending time among trees can reduce
+                        stress and boost immunity.
+                    </p>
+                    <div class="article-details" id="details-1">
+                        <p><strong>Details:</strong> Forest bathing, or Shinrin-yoku, originated in Japan and involves immersing yourself in nature to enhance mental and physical health. Studies show it lowers cortisol levels and strengthens the immune system.</p>
+                    </div>
+                    <a href="#" class="read-more-btn mt-auto" data-bs-toggle="modal" data-bs-target="#modal-1">Learn more</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 2 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card shadow-sm">
+                <img src="https://images.unsplash.com/photo-1519582149095-fe7d19b2a3d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1776&q=80"
+                     class="card-img-top img-fluid card-img"
+                     alt="Person meditating by a lake">
+                <div class="card-body d-flex flex-column">
+                    <h4 class="card-title fw-bold">Mindful Meditation Practices</h4>
+                    <p class="card-text text-muted">March 18, 2025 | By David Chen</p>
+                    <p class="card-text">
+                        Learn simple meditation techniques inspired by natural elements that can help calm your mind and improve
+                        focus.
+                    </p>
+                    <div class="article-details" id="details-2">
+                        <p><strong>Details:</strong> These techniques include focusing on the sound of water or the rustle of leaves, proven to reduce anxiety by up to 30% in clinical studies.</p>
+                    </div>
+                    <a href="#" class="read-more-btn mt-auto" data-bs-toggle="modal" data-bs-target="#modal-2">Learn more</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 3 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card shadow-sm">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1746&q=80"
+                     class="card-img-top img-fluid card-img"
+                     alt="Beach at sunset">
+                <div class="card-body d-flex flex-column">
+                    <h4 class="card-title fw-bold">Ocean Therapy</h4>
+                    <p class="card-text text-muted">March 22, 2025 | By Sarah Waves</p>
+                    <p class="card-text">
+                        Explore how the rhythmic sounds of ocean waves can heal your nervous system and improve sleep quality.
+                    </p>
+                    <div class="article-details" id="details-3">
+                        <p><strong>Details:</strong> Ocean therapy leverages the 7-12 Hz alpha brainwave frequency induced by wave sounds, promoting relaxation and better sleep patterns.</p>
+                    </div>
+                    <a href="#" class="read-more-btn mt-auto" data-bs-toggle="modal" data-bs-target="#modal-3">Learn more</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 4 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card shadow-sm">
+                <img src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1752&q=80"
+                     class="card-img-top img-fluid card-img"
+                     alt="Wildflower meadow">
+                <div class="card-body d-flex flex-column">
+                    <h4 class="card-title fw-bold">Herbal Wisdom</h4>
+                    <p class="card-text text-muted">March 25, 2025 | By Robert Green</p>
+                    <p class="card-text">
+                        Uncover ancient knowledge about medicinal plants and how to incorporate them into your daily wellness
+                        routine.
+                    </p>
+                    <div class="article-details" id="details-4">
+                        <p><strong>Details:</strong> Plants like chamomile and lavender have been used for centuries to reduce inflammation and promote relaxation.</p>
+                    </div>
+                    <a href="#" class="read-more-btn mt-auto" data-bs-toggle="modal" data-bs-target="#modal-4">Learn more</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 5 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card shadow-sm">
+                <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                     class="card-img-top img-fluid card-img"
+                     alt="Mountain sunrise">
+                <div class="card-body d-flex flex-column">
+                    <h4 class="card-title fw-bold">Mountain Wisdom</h4>
+                    <p class="card-text text-muted">March 28, 2025 | By Alex Peak</p>
+                    <p class="card-text">
+                        Learn life lessons from the mountains and how their enduring presence can teach us about resilience and
+                        perspective.
+                    </p>
+                    <div class="article-details" id="details-5">
+                        <p><strong>Details:</strong> Mountains symbolize stability; spending time in their presence can enhance mental endurance and patience.</p>
+                    </div>
+                    <a href="#" class="read-more-btn mt-auto" data-bs-toggle="modal" data-bs-target="#modal-5">Learn more</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 6 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card shadow-sm">
+                <img src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                     class="card-img-top img-fluid card-img"
+                     alt="Autumn forest">
+                <div class="card-body d-flex flex-column">
+                    <h4 class="card-title fw-bold">Seasonal Living</h4>
+                    <p class="card-text text-muted">March 30, 2025 | By Maya Seasons</p>
+                    <p class="card-text">
+                        Discover how aligning your lifestyle with nature's seasons can bring balance, health, and harmony to
+                        your life.
+                    </p>
+                    <div class="article-details" id="details-6">
+                        <p><strong>Details:</strong> Seasonal living adjusts diet and activities to match seasonal changes, improving overall well-being.</p>
+                    </div>
+                    <a href="#" class="read-more-btn mt-auto" data-bs-toggle="modal" data-bs-target="#modal-6">Learn more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Article 1 -->
+<div class="modal fade" id="modal-1" tabindex="-1" aria-labelledby="modalLabel-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <button type="button" class="btn-close position-absolute end-0 m-2 bg-white rounded-circle" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-card">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                         class="card-img-top img-fluid"
+                         alt="Mountain landscape with fog">
+                    <div class="expanded-article-content">
+                        <h3 class="fw-bold mb-2">The Healing Power of Forests</h3>
+                        <p class="text-muted mb-3">March 15, 2025 | By Emma Rivers</p>
+
+                        <div class="article-tags">
+                            <span class="article-tag">Wellness</span>
+                            <span class="article-tag">Nature Therapy</span>
+                            <span class="article-tag">Mental Health</span>
+                        </div>
+
+                        <p>Forest bathing, or Shinrin-yoku, originated in Japan during the 1980s as a physiological and psychological exercise. The practice involves immersing yourself in a forest environment, using all your senses to connect with nature in a way that research has shown can reduce stress, anxiety, and depression while boosting immunity and overall well-being.</p>
+
+                        <h5>Benefits of Forest Bathing</h5>
+                        <p>Forest bathing has been scientifically proven to reduce blood pressure, lower stress hormones like cortisol, and improve concentration and memory. A 2023 study published in the Journal of Environmental Psychology showed a remarkable 20% increase in feelings of vitality and well-being after just one 2-hour forest bathing session.</p>
+
+                        <p>Beyond mental health benefits, time spent among trees has been linked to increased natural killer (NK) cell activity, which helps your body fight off infections and potentially even cancer. This is attributed to phytoncides – aromatic compounds released by trees that we inhale during forest walks.</p>
+
+                        <div class="article-quote">
+                            "The forest is the therapist. The guide just opens the doors." — Dr. Qing Li, author of "Forest Bathing: How Trees Can Help You Find Health and Happiness"
+                        </div>
+
+                        <h5>How to Practice Forest Bathing</h5>
+                        <p>Unlike hiking or other goal-oriented activities, forest bathing is about slowing down and being present:</p>
+                        <ul class="mb-4">
+                            <li>Find a quiet forest or wooded area away from urban noise</li>
+                            <li>Leave your devices behind or switch them to silent mode</li>
+                            <li>Walk slowly, without a specific destination</li>
+                            <li>Breathe deeply and engage all your senses</li>
+                            <li>Notice the smell of the trees, the sound of birds, the feel of the ground beneath your feet</li>
+                            <li>Sit quietly for at least 20 minutes to fully absorb the forest atmosphere</li>
+                        </ul>
+
+                        <h5>Incorporating Forest Time Into Your Routine</h5>
+                        <p>Even if you live in an urban environment, you can benefit from regular contact with trees. A weekly visit to a local park with mature trees, or monthly trips to nearby nature reserves can significantly impact your health. Start with just 20 minutes twice a week and gradually increase your forest time as you begin to notice the benefits.</p>
+
+                        <p>Remember, consistency matters more than duration. Regular brief encounters with nature are more beneficial than occasional lengthy excursions.</p>
+
+                        <div class="text-center mt-4">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Article 2 -->
+<div class="modal fade" id="modal-2" tabindex="-1" aria-labelledby="modalLabel-2" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <button type="button" class="btn-close position-absolute end-0 m-2 bg-white rounded-circle" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-card">
+                    <img src="https://images.unsplash.com/photo-1519582149095-fe7d19b2a3d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1776&q=80"
+                         class="card-img-top img-fluid"
+                         alt="Person meditating by a lake">
+                    <div class="expanded-article-content">
+                        <h3 class="fw-bold mb-2">Mindful Meditation Practices</h3>
+                        <p class="text-muted mb-3">March 18, 2025 | By David Chen</p>
+
+                        <div class="article-tags">
+                            <span class="article-tag">Meditation</span>
+                            <span class="article-tag">Mindfulness</span>
+                            <span class="article-tag">Stress Relief</span>
+                        </div>
+
+                        <p>Nature provides powerful anchors for meditation practice. By incorporating natural elements into mindfulness techniques, we can deepen our practice and strengthen our connection to the world around us.</p>
+
+                        <h5>Water Meditation</h5>
+                        <p>Water has been used in meditation practices across cultures for thousands of years. Its flowing nature provides an excellent metaphor for our thoughts and emotions. To practice water meditation:</p>
+                        <ul class="mb-4">
+                            <li>Sit by a stream, lake, or even a small fountain</li>
+                            <li>Close your eyes and tune into the sound of water</li>
+                            <li>Allow your thoughts to flow like water, without attachment</li>
+                            <li>When your mind wanders, gently return your focus to the water sounds</li>
+                            <li>Practice for 10-15 minutes daily for optimal benefits</li>
+                        </ul>
+
+                        <h5>Leaf Meditation</h5>
+                        <p>This tactile meditation practice helps ground your awareness in the present moment:</p>
+                        <ul class="mb-4">
+                            <li>Choose a leaf that attracts your attention</li>
+                            <li>Hold it gently between your fingers</li>
+                            <li>Notice its texture, color variations, and structural details</li>
+                            <li>Feel its weight and flexibility as you turn it slowly</li>
+                            <li>Use this focus on sensory details to anchor your meditation</li>
+                        </ul>
+
+                        <div class="article-quote">
+                            "In nature, we find silence — not the absence of sound, but the absence of noise." — Thomas Merton
+                        </div>
+
+                        <h5>Sky Gazing Practice</h5>
+                        <p>This traditional Tibetan meditation technique uses the vast expanse of the sky to help expand your awareness:</p>
+                        <ul class="mb-4">
+                            <li>Find a comfortable position outdoors with a clear view of the sky</li>
+                            <li>Gaze softly at the sky, noticing its vastness</li>
+                            <li>Allow your mind to become spacious like the sky</li>
+                            <li>Notice thoughts as clouds passing through, without attachment</li>
+                            <li>Practice for 5-10 minutes, especially at dawn or dusk</li>
+                        </ul>
+
+                        <p>Research shows these nature-based meditation techniques reduce anxiety by up to 30% when practiced regularly. The key is consistency - even five minutes daily will yield more benefits than an hour once a week.</p>
+
+                        <div class="text-center mt-4">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Article 3 -->
+<div class="modal fade" id="modal-3" tabindex="-1" aria-labelledby="modalLabel-3" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <button type="button" class="btn-close position-absolute end-0 m-2 bg-white rounded-circle" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-card">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1746&q=80"
+                         class="card-img-top img-fluid"
+                         alt="Beach at sunset">
+                    <div class="expanded-article-content">
+                        <h3 class="fw-bold mb-2">Ocean Therapy</h3>
+                        <p class="text-muted mb-3">March 22, 2025 | By Sarah Waves</p>
+
+                        <div class="article-tags">
+                            <span class="article-tag">Sound Therapy</span>
+                            <span class="article-tag">Sleep Health</span>
+                            <span class="article-tag">Relaxation</span>
+                        </div>
+
+                        <p>The rhythmic sound of ocean waves has been scientifically proven to calm the nervous system and improve sleep quality. This natural phenomenon, often called "ocean therapy," works by synchronizing our brainwaves to the gentle, predictable pattern of waves breaking on shore.</p>
+
+                        <h5>Science Behind Ocean Therapy</h5>
+                        <p>Ocean waves typically create sounds in the 7-12 Hz frequency range, which corresponds closely with our brain's alpha wave state. Alpha brainwaves are associated with relaxation, creativity, and a meditative state that's alert yet calm.</p>
+
+                        <p>Neurological research conducted at the University of California in 2023 found that listening to ocean sounds for just 20 minutes reduced insomnia symptoms by up to 40% in study participants. Additionally, the negative ions present in sea air have been linked to increased serotonin production, helping alleviate symptoms of depression and seasonal affective disorder.</p>
+
+                        <div class="article-quote">
+                            "The sea, once it casts its spell, holds one in its net of wonder forever." — Jacques Cousteau
+                        </div>
+
+                        <h5>Practical Tips for Ocean Therapy</h5>
+                        <p>You don't need to live by the coast to benefit from ocean therapy:</p>
+                        <ul class="mb-4">
+                            <li>Use high-quality recordings of real ocean sounds (avoid synthesized versions)</li>
+                            <li>Create a comfortable environment free from distractions</li>
+                            <li>Listen through speakers rather than headphones for a more immersive experience</li>
+                            <li>Practice deep, diaphragmatic breathing while listening</li>
+                            <li>For sleep improvement, use ocean sounds at a low volume throughout the night</li>
+                        </ul>
+
+                        <h5>Beyond Sound: Complete Ocean Immersion</h5>
+                        <p>If you have access to the ocean, consider a more comprehensive approach:</p>
+                        <ul class="mb-4">
+                            <li>Practice "blue mind" meditation by gazing at the horizon where sky meets water</li>
+                            <li>Wade in shallow water to benefit from the grounding effects of salt water</li>
+                            <li>Float in the ocean (with proper safety precautions) to experience sensory deprivation effects</li>
+                            <li>Walk barefoot on wet sand for the benefits of natural earthing/grounding</li>
+                        </ul>
+
+                        <p>Regular ocean therapy sessions of 20-30 minutes, three times per week, have been shown to reduce chronic stress markers and improve immune function. Even better, these benefits appear to be cumulative with regular practice.</p>
+
+                        <div class="text-center mt-4">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Article 4 -->
+<div class="modal fade" id="modal-4" tabindex="-1" aria-labelledby="modalLabel-4" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <button type="button" class="btn-close position-absolute end-0 m-2 bg-white rounded-circle" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-card">
+                    <img src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1752&q=80"
+                         class="card-img-top img-fluid"
+                         alt="Wildflower meadow">
+                    <div class="expanded-article-content">
+                        <h3 class="fw-bold mb-2">Herbal Wisdom</h3>
+                        <p class="text-muted mb-3">March 25, 2025 | By Robert Green</p>
+
+                        <div class="article-tags">
+                            <span class="article-tag">Herbalism</span>
+                            <span class="article-tag">Natural Remedies</span>
+                            <span class="article-tag">Plant Medicine</span>
+                        </div>
+                        <!-- Modal for Article 4 (continued) -->
+                        <p>For thousands of years, humans have cultivated a deep relationship with medicinal plants. This ancient wisdom has been passed down through generations and is now being validated by modern scientific research. Understanding how to incorporate these plants into your daily wellness routine can transform your approach to health.</p>
+
+                        <h5>Common Herbs and Their Benefits</h5>
+                        <p>These widely available herbs offer significant health benefits when used properly:</p>
+                        <ul class="mb-4">
+                            <li><strong>Chamomile</strong> - Contains apigenin, which binds to brain receptors to reduce anxiety and promote sleep</li>
+                            <li><strong>Lavender</strong> - Its linalool content helps regulate the nervous system and improve sleep quality</li>
+                            <li><strong>Peppermint</strong> - Natural menthol relieves digestive discomfort and improves mental clarity</li>
+                            <li><strong>Turmeric</strong> - Contains curcumin, a powerful anti-inflammatory compound</li>
+                            <li><strong>Echinacea</strong> - Stimulates immune function to help prevent and fight infections</li>
+                        </ul>
+
+                        <div class="article-quote">
+                            "The art of healing comes from nature, not from the physician." — Paracelsus
+                        </div>
+
+                        <h5>Integration Into Daily Life</h5>
+                        <p>Here are simple ways to incorporate herbal medicine into your routine:</p>
+                        <ul class="mb-4">
+                            <li>Start your day with a cup of nettle or dandelion tea to support liver function</li>
+                            <li>Add adaptogenic herbs like ashwagandha or holy basil to smoothies for stress management</li>
+                            <li>Create a bedtime ritual with calming herbs like chamomile, lavender, or passionflower</li>
+                            <li>Use culinary herbs like rosemary, thyme, and oregano liberally in cooking</li>
+                            <li>Create a small herb garden to ensure fresh access and deepen your connection to plant medicine</li>
+                        </ul>
+
+                        <h5>Important Considerations</h5>
+                        <p>While herbs are natural, they're also powerful medicine:</p>
+                        <ul class="mb-4">
+                            <li>Always research potential interactions with medications you're taking</li>
+                            <li>Start with small doses to test for allergies or sensitivities</li>
+                            <li>Source herbs from reputable suppliers to ensure quality and purity</li>
+                            <li>Consult healthcare providers before using herbs medicinally, especially during pregnancy or for chronic conditions</li>
+                        </ul>
+
+                        <p>Remember that herbal medicine works best as part of a holistic approach to wellness that includes proper nutrition, exercise, stress management, and adequate rest.</p>
+
+                        <div class="text-center mt-4">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Article 5 -->
+<div class="modal fade" id="modal-5" tabindex="-1" aria-labelledby="modalLabel-5" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <button type="button" class="btn-close position-absolute end-0 m-2 bg-white rounded-circle" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-card">
+                    <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                         class="card-img-top img-fluid"
+                         alt="Mountain sunrise">
+                    <div class="expanded-article-content">
+                        <h3 class="fw-bold mb-2">Mountain Wisdom</h3>
+                        <p class="text-muted mb-3">March 28, 2025 | By Alex Peak</p>
+
+                        <div class="article-tags">
+                            <span class="article-tag">Philosophy</span>
+                            <span class="article-tag">Resilience</span>
+                            <span class="article-tag">Life Lessons</span>
+                        </div>
+
+                        <p>Mountains have long served as powerful teachers for humanity. Their enduring presence, majesty, and challenging terrain offer profound metaphors for navigating life's obstacles. By understanding mountain wisdom, we can develop greater resilience, patience, and perspective.</p>
+
+                        <h5>Lessons from Mountains</h5>
+                        <p>Mountains embody several key principles that apply directly to human experience:</p>
+                        <ul class="mb-4">
+                            <li><strong>Patience</strong> - Mountains remind us that significant achievements take time. They were formed over millions of years through countless incremental changes.</li>
+                            <li><strong>Perspective</strong> - From mountain heights, problems that seemed overwhelming below often appear smaller and more manageable.</li>
+                            <li><strong>Perseverance</strong> - Mountain climbing teaches that progress often involves temporary setbacks and requires steady, consistent effort.</li>
+                            <li><strong>Humility</strong> - Standing before towering peaks reminds us of our place in the natural world and the limits of human control.</li>
+                        </ul>
+
+                        <div class="article-quote">
+                            "The mountains are calling and I must go." — John Muir
+                        </div>
+
+                        <h5>Mountain Mindfulness Practice</h5>
+                        <p>Try this meditation technique inspired by mountain stability:</p>
+                        <ol class="mb-4">
+                            <li>Sit in a comfortable position with your spine straight</li>
+                            <li>Visualize yourself as a mountain — solid, unwavering, enduring</li>
+                            <li>Imagine weather patterns (representing emotions and thoughts) moving across the mountain</li>
+                            <li>Notice that while the surface experiences change, the mountain's essence remains unchanged</li>
+                            <li>When facing challenges, return to this image of steadfast presence</li>
+                        </ol>
+
+                        <h5>Applying Mountain Wisdom to Daily Challenges</h5>
+                        <p>Mountain wisdom can help navigate modern difficulties:</p>
+                        <ul class="mb-4">
+                            <li>When feeling overwhelmed, seek higher perspective by stepping back from immediate concerns</li>
+                            <li>Break significant goals into smaller "switchbacks" rather than attempting direct ascents</li>
+                            <li>Remember that fog and storms (confusion and crisis) are temporary conditions</li>
+                            <li>Practice "belaying" in relationships by providing secure support while allowing others freedom to climb</li>
+                        </ul>
+
+                        <p>Research in environmental psychology indicates that even brief exposure to mountain environments or imagery can increase feelings of awe, reduce stress hormones, and enhance creative problem-solving abilities by up to 47%.</p>
+
+                        <div class="text-center mt-4">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Article 6 -->
+<div class="modal fade" id="modal-6" tabindex="-1" aria-labelledby="modalLabel-6" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <button type="button" class="btn-close position-absolute end-0 m-2 bg-white rounded-circle" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-card">
+                    <img src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                         class="card-img-top img-fluid"
+                         alt="Autumn forest">
+                    <div class="expanded-article-content">
+                        <h3 class="fw-bold mb-2">Seasonal Living</h3>
+                        <p class="text-muted mb-3">March 30, 2025 | By Maya Seasons</p>
+
+                        <div class="article-tags">
+                            <span class="article-tag">Harmonious Living</span>
+                            <span class="article-tag">Wellness</span>
+                            <span class="article-tag">Natural Cycles</span>
+                        </div>
+
+                        <p>Modern life has largely disconnected us from the natural rhythms that governed human existence for millennia. Seasonal living aims to restore this connection by aligning our diet, activities, and lifestyle with nature's cycles. This practice has roots in traditional medicine systems like Ayurveda and Traditional Chinese Medicine.</p>
+
+                        <h5>Spring: Season of Renewal</h5>
+                        <p>Spring invites us to embrace new beginnings and cleansing:</p>
+                        <ul class="mb-4">
+                            <li><strong>Diet:</strong> Focus on young, tender greens, sprouts, and detoxifying herbs like dandelion and nettle</li>
+                            <li><strong>Activities:</strong> Gardening, outdoor walks, spring cleaning, and gentle stretching to awaken the body</li>
+                            <li><strong>Wellness practices:</strong> Dry brushing, shorter fasts, and liver-supporting herbs</li>
+                        </ul>
+
+                        <h5>Summer: Season of Expansion</h5>
+                        <p>Summer encourages growth, connection, and outward energy:</p>
+                        <ul class="mb-4">
+                            <li><strong>Diet:</strong> Fresh fruits, raw vegetables, cooling herbs like mint and cilantro</li>
+                            <li><strong>Activities:</strong> Swimming, hiking, outdoor gatherings, sunrise practices</li>
+                            <li><strong>Wellness practices:</strong> Cold showers, hydrating herbs, protection from excess heat</li>
+                        </ul>
+
+                        <div class="article-quote">
+                            "Live in each season as it passes; breathe the air, drink the drink, taste the fruit, and resign yourself to the influence of the earth." — Henry David Thoreau
+                        </div>
+
+                        <h5>Autumn: Season of Harvest</h5>
+                        <p>Autumn teaches us gratitude, organization, and preparation:</p>
+                        <ul class="mb-4">
+                            <li><strong>Diet:</strong> Root vegetables, whole grains, warming spices like cinnamon and ginger</li>
+                            <li><strong>Activities:</strong> Harvesting, preserving food, organizing spaces, moderate exercise</li>
+                            <li><strong>Wellness practices:</strong> Lung-supporting herbs, regular sleep schedules, gratitude journaling</li>
+                        </ul>
+
+                        <h5>Winter: Season of Rest</h5>
+                        <p>Winter invites introspection, conservation, and restoration:</p>
+                        <ul class="mb-4">
+                            <li><strong>Diet:</strong> Warming soups, stews, fermented foods, and immune-supporting herbs</li>
+                            <li><strong>Activities:</strong> Gentle indoor movement, creative projects, reading, reflection</li>
+                            <li><strong>Wellness practices:</strong> Earlier bedtimes, meditation, oil massage, light therapy</li>
+                        </ul>
+
+                        <p>Research indicates that aligning with seasonal patterns can reduce symptoms of seasonal affective disorder by up to 60% and improve overall energy levels by regulating circadian rhythms. Most importantly, seasonal living fosters a deeper connection to the natural world and its wisdom.</p>
+
+                        <div class="text-center mt-4">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Initialize Bootstrap modals
+        var modals = document.querySelectorAll('.modal');
+        Array.from(modals).forEach(function (modal) {
+            new bootstrap.Modal(modal);
+        });
+
+        // Optional: Add animations for modals
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('show.bs.modal', function () {
+                setTimeout(() => {
+                    const modalContent = this.querySelector('.modal-content');
+                    if (modalContent) {
+                        modalContent.style.opacity = '0';
+                        modalContent.style.transform = 'translateY(20px)';
+                        modalContent.style.transition = 'all 0.3s ease';
+
+                        setTimeout(() => {
+                            modalContent.style.opacity = '1';
+                            modalContent.style.transform = 'translateY(0)';
+                        }, 50);
+                    }
+                }, 0);
+            });
+        });
+    });
+</script>

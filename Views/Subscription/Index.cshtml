@@ -1,0 +1,156 @@
+﻿@{
+        ViewData["Title"] = "Subscription Plans";
+    }
+
+    <style>
+        @@keyframes fadeIn {
+            fro
+   m { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .card-body { animation: fadeIn 1.5s ease-in-out; }
+        .card { background: rgba(255, 255, 255, 0.8); transition: transform 0.3s ease; }
+        .card:hover { transform: scale(1.05); }
+        .card-body h4 { animation: fadeIn 1.5s ease-in-out; }
+        .card.expanded { transform: scale(1.1); z-index: 10; position: relative; }
+        .plan-details { display: none; margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px; }
+        .plan-details.show { display: block; }
+    </style>
+
+    <div class="container my-5" style="background: linear-gradient(135deg, #E6F4F1 0%, #D2E9E6 25%, #B8D8D8 50%, #A2C7C7 75%, #8EB8B8 100%); min-height: 100vh; font-family: 'Lato', sans-serif;">
+        <h2 class="text-center mb-5 fw-bold" style="color: #2F4F4F; animation: fadeIn 1.5s ease-in-out;">Choose Your Plan</h2>
+
+        <div class="row text-center">
+            <!-- Basic Plan -->
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm" style="background: rgba(255, 255, 255, 0.8); transition: transform 0.3s ease;">
+                    <div class="card-body">
+                        <h4 class="fw-bold" style="animation: fadeIn 1.5s ease-in-out;">Basic Plan</h4>
+                        <p class="lead">₹200/month</p>
+                        <p>Access to basic meditation guides.</p>
+                        <div class="plan-details" id="basic-details">
+                            <p><strong>Features:</strong></p>
+                            <ul class="text-start">
+                                <li>30 days of guided audio sessions</li>
+                                <li>Daily mindfulness exercises</li>
+                                <li>Basic progress tracking</li>
+                            </ul>
+                        </div>
+    @if (ViewBag.PurchasedPlan != "Basic")
+    {
+                                <form asp-action="Create" method="post" class="buy-now-form">
+                                    <input type="hidden" name="PlanName" value="Basic" />
+                                    <button type="submit" class="btn btn-primary buy-now-btn">Buy Now</button>
+                                </form>
+    }
+                        <button class="btn btn-secondary mt-2 view-details-btn" data-plan="Basic" data-url="@Url.Action("Basic", "Subscription")">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pro Plan -->
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm" style="background: rgba(255, 255, 255, 0.8); transition: transform 0.3s ease;">
+                    <div class="card-body">
+                        <h4 class="fw-bold" style="animation: fadeIn 1.5s ease-in-out;">Pro Plan</h4>
+                        <p class="lead">₹400/month</p>
+                        <p>Full access to all meditation and mindfulness content.</p>
+                        <div class="plan-details" id="pro-details">
+                            <p><strong>Features:</strong></p>
+                            <ul class="text-start">
+                                <li>30 days of video and audio sessions</li>
+                                <li>Advanced mindfulness techniques</li>
+                                <li>Exclusive content updates</li>
+                            </ul>
+                        </div>
+    @if (ViewBag.PurchasedPlan != "Pro")
+    {
+                                <form asp-action="Create" method="post" class="buy-now-form">
+                                    <input type="hidden" name="PlanName" value="Pro" />
+                                    <button type="submit" class="btn btn-primary buy-now-btn">Buy Now</button>
+                                </form>
+    }
+                        <button class="btn btn-secondary mt-2 view-details-btn" data-plan="Pro" data-url="@Url.Action("Pro", "Subscription")">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Premium Plan -->
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm" style="background: rgba(255, 255, 255, 0.8); transition: transform 0.3s ease;">
+                    <div class="card-body">
+                        <h4 class="fw-bold" style="animation: fadeIn 1.5s ease-in-out;">Premium Plan</h4>
+                        <p class="lead">₹600/month</p>
+                        <p>Personalized sessions and live classes.</p>
+                        <div class="plan-details" id="premium-details">
+                            <p><strong>Features:</strong></p>
+                            <ul class="text-start">
+                                <li>30 days of video and audio sessions</li>
+                                <li>Live meditation classes with experts</li>
+                                <li>Personalized mindfulness plans</li>
+                            </ul>
+                        </div>
+    @if (ViewBag.PurchasedPlan != "Premium")
+    {
+                                <form asp-action="Create" method="post" class="buy-now-form">
+                                    <input type="hidden" name="PlanName" value="Premium" />
+                                    <button type="submit" class="btn btn-primary buy-now-btn">Buy Now</button>
+                                </form>
+    }
+                        <button class="btn btn-secondary mt-2 view-details-btn" data-plan="Premium" data-url="@Url.Action("Premium", "Subscription")">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const purchasedPlan = "@ViewBag.PurchasedPlan";
+
+        document.querySelectorAll(".buy-now-form").forEach(form => {
+            form.addEventListener("submit", function (e) {
+                // Do not prevent default; let the form submit to the server
+                // Optional: Add a loading state if needed
+                const buyNowButton = form.querySelector(".buy-now-btn");
+                if (!isLoggedIn) {
+                    e.preventDefault(); // Prevent form submission
+                    alert("Please log in to proceed with the subscription.");
+                    window.location.href = "/Account/Login"; // Redirect to login page
+                    return;
+                }
+                if (buyNowButton) {
+                    buyNowButton.disabled = true; // Disable to prevent multiple clicks
+                    buyNowButton.textContent = "Processing..."; // Optional feedback
+                    //i want here....to check if it log in or not
+                }
+                    form.action = '/Subscription/Payment'; 
+            });
+        });
+
+        // Handle View Details button first click
+        document.querySelectorAll(".view-details-btn").forEach(button => {
+            button.addEventListener("click", function (e) {
+                e.preventDefault();
+                const plan = this.getAttribute("data-plan");
+                const url = this.getAttribute("data-url");
+                const card = this.closest(".card");
+                const details = document.getElementById(`${plan.toLowerCase()}-details`);
+
+                console.log(purchasedPlan);
+                console.log(plan);
+                if (purchasedPlan === plan) {
+                     console.log("heyyy");
+                    window.location.href = url;
+                } else {
+                    console.log("heyyy");
+                    card.classList.toggle("expanded");
+                    details.classList.toggle("show");
+                }
+            });
+        });
+    });
+</script>
+

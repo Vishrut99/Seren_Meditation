@@ -1,0 +1,260 @@
+﻿@model MEDIT.Models.User
+@using MeditationPlatform.Common
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .hero-section {
+         background: linear-gradient(135deg, #A0D995 0%, #c5cae9 100%);
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80') no-repeat center center/cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        color: #2F4F4F;
+        animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .benefits-section {
+        //background: rgb(240, 240, 240);
+       // background: rgba(245, 245, 220, 0.9);
+        background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+        padding: 60px 0;
+    }
+
+    .nature-serenity-section {
+        background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+      //  background: rgb(240, 240, 240);
+        padding: 60px 0;
+        border-radius: 30px;
+        margin: 30px 0;
+    }
+
+    .gallery-section {
+         background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+        // background: rgba(245, 245, 220, 0.9);
+       // background: rgb(240, 240, 240);
+        padding: 60px 0;
+    }
+
+    .card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        transition: transform 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+        }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        aspect-ratio: 4/3;
+    }
+
+    .card-body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1.5rem;
+    }
+
+    .gallery__grid {
+        margin-top: 2rem;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+    }
+
+    .gallery__card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+    }
+
+    .gallery__card:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 576px) {
+        .hero-section h1 {
+            font-size: 2rem;
+        }
+
+        .hero-section p {
+            font-size: 1rem;
+        }
+
+        .card-img-top, .gallery__card img {
+            height: 150px;
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+        }
+
+        .gallery__grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @@media (min-width: 576px) and (max-width: 768px) {
+        .hero-section h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+        }
+
+        .card-img-top, .gallery__card img {
+            height: 180px;
+        }
+
+        .gallery__grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+</style>
+
+<div class="container-fluid p-0">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="display-3 fw-bold" style="animation-delay: 0.2s;">
+                Welcome to Serene Meditation@(GlobalUserStore.IsUserLoggedIn ? $", {GlobalUserStore.CurrentUser?.Name}!" : "")!
+            </h1>
+            <p class="lead mt-3" style="font-size: 1.5rem; animation-delay: 0.4s;">
+                Embrace nature’s tranquility and discover inner peace.
+            </p>
+            <a href="@(GlobalUserStore.IsUserLoggedIn ? "/Blog" : "/Account/Register")" class="btn btn-primary mt-4" style="animation-delay: 0.6s;">Begin Your Journey</a>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="section__header mb-5" style="color: #2F4F4F; animation: fadeIn 1.5s ease-in-out;">The Path to Serenity</h2>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0">
+                        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Nature 3">
+                        <div class="card-body">
+                            <h5 class="fw-bold">Meditation</h5>
+                            <h6 class="fw-bold" style="color: #2F4F4F;">Calm Your Mind</h6>
+                            <p>Release stress with nature-inspired meditation.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0">
+                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" class="card-img-top img-fluid" alt="Focus">
+                        <div class="card-body">
+                            <h5 class="fw-bold">Focus</h5>
+                            <h6 class="fw-bold" style="color: #2F4F4F;">Sharpen Focus</h6>
+                            <p>Enhance clarity with mindful nature practices.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" class="card-img-top img-fluid" alt="Happiness">
+                        <div class="card-body">
+                            <h5 class="fw-bold">Happiness</h5>
+                            <h6 class="fw-bold" style="color: #2F4F4F;">Nurture Joy</h6>
+                            <p>Cultivate well-being with nature’s embrace.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nature Serenity Section -->
+    <section class="nature-serenity-section">
+        <div class="container">
+            <h2 class="section__header mb-5" style="color: #2F4F4F;">Nature’s Serenity</h2>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Nature Serenity" class="img-fluid rounded" style="max-height: 400px; object-fit: cover;">
+                </div>
+                <div class="col-md-6">
+                    <p class="lead" style="color: #2F4F4F;">
+                        Immerse yourself in nature to enhance your meditation practice. The sounds of rustling leaves, flowing rivers, and gentle breezes create a perfect backdrop for mindfulness, reducing stress and fostering a deep connection with the earth.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="ri-checkbox-circle-fill" style="color: #81c784;"></i> Reduces cortisol levels</li>
+                        <li class="mb-2"><i class="ri-checkbox-circle-fill" style="color: #81c784;"></i> Boosts immune health</li>
+                        <li class="mb-2"><i class="ri-checkbox-circle-fill" style="color: #81c784;"></i> Enhances mental clarity</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section__header mb-5" style="color: #2F4F4F;">Peaceful Landscapes</h2>
+            <div class="gallery__grid">
+                <div class="gallery__card">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Nature 1">
+                </div>
+                <div class="gallery__card">
+                    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Nature 2">
+                </div>
+                <div class="gallery__card">
+                    <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Nature 3">
+                </div>
+                <div class="gallery__card">
+                    <img src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Nature 4">
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

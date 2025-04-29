@@ -1,0 +1,74 @@
+﻿@*<div class="container my-5" style="background: linear-gradient(135deg, #E6F4F1 0%, #D2E9E6 25%, #B8D8D8 50%, #A2C7C7 75%, #8EB8B8 100%); min-height: 100vh; font-family: 'Lato', sans-serif;">
+        <h2 class="text-center mb-5 fw-bold" style="color: #2F4F4F; animation: fadeIn 1.5s ease-in-out;">Meditation Tracks</h2>
+
+        <div class="row">
+            @foreach (var track in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm" style="background: rgba(255, 255, 255, 0.8); transition: transform 0.3s ease;">
+                        <div class="card-body">
+                            <h5 class="fw-bold">@track.Title</h5>
+                            <p><strong>Duration:</strong> @track.Duration minutes</p>
+                            <p><strong>Category:</strong> @track.Category</p>
+                            <p><strong>Subscription:</strong> @track.SubscriptionLevel</p>
+                            <video controls style="width: 100%; height: 150px;">
+                                <source src="@track.FilePath" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>*@
+
+<div class="container my-5" style="background: linear-gradient(135deg, #E6F4F1 0%, #D2E9E6 25%, #B8D8D8 50%, #A2C7C7 75%, #8EB8B8 100%); min-height: 100vh; font-family: 'Lato', sans-serif;">
+    <h2 class="text-center mb-5 fw-bold" style="color: #2F4F4F; animation: fadeIn 1.5s ease-in-out;">Meditation Tracks</h2>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm" style="background: rgba(255, 255, 255, 0.8); transition: transform 0.3s ease;">
+                <div class="card-body">
+                    <h5 class="fw-bold">Peaceful Mind</h5>
+                    <p><strong>Duration:</strong> 10 minutes</p>
+                    <p><strong>Category:</strong> Relaxation</p>
+                    <p><strong>Subscription:</strong> Free</p>
+                    <video controls style="width: 100%; height: 150px;">
+                        <source src="/media/v1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm" style="background: rgba(255, 255, 255, 0.8); transition: transform 0.3s ease;">
+                <div class="card-body">
+                    <h5 class="fw-bold">Morning Energy Boost</h5>
+                    <p><strong>Duration:</strong> 13 minutes</p>
+                    <p><strong>Category:</strong> Energy</p>
+                    <p><strong>Subscription:</strong> Free</p>
+                    <video controls style="width: 100%; height: 150px;">
+                        <source src="/media/v2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm" style="background: rgba(255, 255, 255, 0.8); transition: transform 0.3s ease;">
+                <div class="card-body">
+                    <h5 class="fw-bold">Deep Sleep Journey</h5>
+                    <p><strong>Duration:</strong> 15 minutes</p>
+                    <p><strong>Category:</strong> Sleep</p>
+                    <p><strong>Subscription:</strong> Free</p>
+                    <video controls style="width: 100%; height: 150px;">
+                        <source src="/media/v3.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

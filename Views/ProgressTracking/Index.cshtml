@@ -1,0 +1,118 @@
+﻿<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<div class="container my-5" style="min-height: 100vh; font-family: 'Lato', sans-serif;">
+    <h2 class="text-center mb-5 fw-bold text-4xl font-bold lg:text-4xl xl:text-5xl text-dark" style="animation: fadeIn 1.5s ease-in-out;">Your Progress</h2>
+    <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 bg-gradient-to-r from-[#E6F4F1] via-[#B8D8D8] to-[#8EB8B8]">
+        <div class="grid grid-cols-1 gap-y-8 md:grid-cols-3">
+            <div class="text-center md:border-r border-gray-300">
+                <h6 class="text-4xl font-bold lg:text-5xl xl:text-5xl text-gray-800">@Model.TotalSessions</h6>
+                <p class="text-sm font-medium tracking-widest text-gray-600 uppercase lg:text-base">Counted Sessions</p>
+            </div>
+            <div class="text-center md:border-r border-gray-300">
+                <h6 class="text-4xl font-bold lg:text-4xl xl:text-5xl text-gray-800">@Model.TotalMinutes</h6>
+                <p class="text-sm font-medium tracking-widest text-gray-600 uppercase lg:text-base">Total Minutes</p>
+            </div>
+            <div class="text-center">
+                <h6 class="text-4xl font-bold lg:text-4xl xl:text-5xl text-gray-800">@Model.LastSessionDate</h6>
+                <p class="text-sm font-medium tracking-widest text-gray-600 uppercase lg:text-base">Last Session Date</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Report Section -->
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm" style="background: #fffdf5; border: 1px solid #e0e0e0;">
+                <div class="card-body p-4">
+                    <h4 class="card-title text-center fw-semibold mb-4" style="color: #2c3e50; font-family: 'Georgia', serif; font-size: 1.75rem;">Progress Report</h4>
+                    <div class="d-flex justify-content-center mb-3">
+                        <canvas id="progressChart" width="350" height="350" class="border rounded"></canvas>
+                    </div>
+                    <div class="d-flex justify-content-center gap-4 flex-wrap">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-info rounded-circle me-2" style="width: 15px; height: 15px; background-color: rgba(75, 192, 192, 0.6);"></div>
+                            <span class="text-muted">Completed Sessions: @Model.TotalSessions</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-secondary rounded-circle me-2" style="width: 15px; height: 15px; background-color: rgba(200, 200, 200, 0.6);"></div>
+                            <span class="text-muted">Remaining Sessions: @(30 - @Model.TotalSessions)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get the canvas context
+    var ctx = document.getElementById('progressChart').getContext('2d');
+
+    // Parse the daily progress data from the model (though we're using TotalSessions for simplicity)
+    var completedSessions = @Model.TotalSessions;
+    var totalSessions = 30; // Total sessions
+    var remainingSessions = totalSessions - completedSessions;
+
+    // Pie chart data
+    var data = [completedSessions, remainingSessions];
+    var colors = ['rgba(75, 192, 192, 0.6)', 'rgba(200, 200, 200, 0.6)'];
+
+    // Chart dimensions
+    const centerX = 175; // Adjusted for 350px width
+    const centerY = 175; // Adjusted for 350px height
+    const radius = 150;
+    const total = data.reduce((a, b) => a + b, 0);
+    let startAngle = 0;
+
+    // Draw the pie chart
+    for (let i = 0; i < data.length; i++) {
+        const sliceAngle = (data[i] / total) * 2 * Math.PI;
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
+        ctx.fillStyle = colors[i];
+        ctx.fill();
+        ctx.closePath();
+        startAngle += sliceAngle;
+    }
+
+    // Add a title to the chart
+    ctx.fillStyle = '#2F4F4F';
+    ctx.font = '18px Lato';
+    ctx.textAlign = 'center';
+    ctx.fillText('Session Completion Progress', centerX, 30);
+</script>
+
+<style>
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .card {
+        border-radius: 15px;
+        transition: transform 0.3s ease;
+    }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+    .card-body {
+        background: #fffdf5;
+        border-radius: 15px;
+    }
+
+    .text-primary {
+        color: #2c3e50 !important;
+    }
+
+    .border {
+        border-color: #e0e0e0 !important;
+    }
+</style>
