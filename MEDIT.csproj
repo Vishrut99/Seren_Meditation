@@ -16,6 +16,11 @@
   <ItemGroup>
     <None Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="medit.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3">
