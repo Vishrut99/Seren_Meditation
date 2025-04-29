@@ -22,5 +22,6 @@ FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
+COPY medit.db ./medit.db
 # Set the entry point
 ENTRYPOINT ["dotnet", "MEDIT.dll"]
